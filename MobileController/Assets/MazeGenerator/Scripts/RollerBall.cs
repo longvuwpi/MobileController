@@ -137,14 +137,18 @@ public class RollerBall : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		if (other.gameObject.tag.Equals ("Coin")) {
-			if(mAudioSource != null && CoinSound != null){
-				mAudioSource.PlayOneShot(CoinSound);
-			}
-			Destroy(other.gameObject);
-            collectedCoins++;
-            File.AppendAllText(Application.dataPath + "/Log.txt", "Picked up totally " + collectedCoins.ToString() + Environment.NewLine);
-
+        if (FindObjectOfType<ScoreBoard>().is_started())
+        {
+            if (other.gameObject.tag.Equals("Coin"))
+            {
+                if (mAudioSource != null && CoinSound != null)
+                {
+                    mAudioSource.PlayOneShot(CoinSound);
+                }
+                Destroy(other.gameObject);
+                collectedCoins++;
+                File.AppendAllText(Application.dataPath + "/Log.txt", "Picked up totally " + collectedCoins.ToString() + Environment.NewLine);
+            }
         }
     }
 
